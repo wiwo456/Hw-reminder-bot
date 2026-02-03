@@ -1,4 +1,5 @@
 import json
+import detector
 
 def main():
     print("The program has started ")
@@ -8,6 +9,10 @@ def main():
 
     delay_minutes = config["delay_minutes"]
     delay_seconds = delay_minutes * 60
+
+    found = detector.detect_hw()
+    print("Homework found? ", found)
+    
     print("delay_minutes:", delay_minutes)
     print("delay_seconds:", delay_seconds)
 
