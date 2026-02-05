@@ -10,9 +10,24 @@ def main():
     delay_minutes = config["delay_minutes"]
     delay_seconds = delay_minutes * 60
 
-    found = detector.detect_hw()
-    print("Homework found? ", found)
+    with open ("storage.json", "r") as f:
+        storage = json.load(f)
+
+    homework = detector.detect_hw()
     
+    if not homework:
+        print ("You do not have any assignment due.......")
+        return
+    else:
+        print("\nHomework exits will notify you....\n")
+        print("\nHomework Found:\n")
+
+        for hw in homework:
+            print("Course:", hw['course'])
+            print("Title:", hw["title"])
+            print("Due:", hw["due"])
+            print("========================")
+
     print("delay_minutes:", delay_minutes)
     print("delay_seconds:", delay_seconds)
 
