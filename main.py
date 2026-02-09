@@ -1,6 +1,8 @@
 import json
 import detector
+import requests
 from datetime import datetime
+
 
 
 def main():
@@ -8,6 +10,10 @@ def main():
 
     with open ("config.json", "r") as f:
         config = json.load(f)
+    
+    webhook_url = config["discord_webhook"]
+   
+
 
     delay_minutes = config["delay_minutes"]
     delay_seconds = delay_minutes * 60
@@ -30,14 +36,32 @@ def main():
             hw_id = hw["course"] + " | " + hw["title"] + " | " + hw["due"] + " | " + hw["time"]
             
             if hw_id in reminded_hw: #this line does the skip of old hw
-                 continue
+                continue
             
+            due_string = hw["due"] + " " + hw["time"]
+            due_datetime = datetime.strptime(due_string, "%Y-%m-%d %I:%M %p")
+            now = datetime.now()
+            hours_left = (due_datetime - now).total_seconds()/3600
+            days_left = round(hours_left / 24, 2)
+            
+            if (days_left > 5):
+                continue
+            elif(days_left <=0):
+                print("You missed the hw (Overdue). Write a mail.....")
+            elif(days_left <=2):
+                print("Do your homework.....")
+            else:
+                print("Your homework is due soon")
+            print(" ")
+            print ("=====================") 
             print(" New homework found ")
             print("Course:", hw['course'])
             print("Title:", hw["title"])
             print("Due:", hw["due"], hw["time"])
+            print ( f"You have {days_left} days left")
             print("========================")
 
+            
             reminded_hw.append(hw_id)
     
     #this line dumps the already reminded hw to the storage

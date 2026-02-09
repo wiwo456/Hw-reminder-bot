@@ -35,6 +35,22 @@ def detect_hw():
         "due": "2026-02-20",
         "time": "12:00 PM",
     })
+    
+    homework_list.append({
+        "course": "Nepali",
+        "title": "HW",
+        "due": "2026-02-15",
+        "time": "12:00 PM",
+
+    })
+
+    homework_list.append({
+        "course": "Social",
+        "title": "HW",
+        "due": "2026-02-11",
+        "time": "12:00 PM",
+
+    })
 
     return homework_list
 
