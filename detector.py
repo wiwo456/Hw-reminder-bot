@@ -46,8 +46,8 @@ def detect_hw():
 
     homework_list.append({
         "course": "Social",
-        "title": "HW",
-        "due": "2026-02-11",
+        "title": "Map of USA",
+        "due": "2026-02-12",
         "time": "12:00 PM",
 
     })
