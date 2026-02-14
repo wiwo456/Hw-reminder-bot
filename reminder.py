@@ -1,3 +1,4 @@
+#this code is responsible for sending the timely reminders of assignemnts. 
 from datetime import datetime, timedelta
 
 
