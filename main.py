@@ -6,6 +6,7 @@ import time
 import storage
 from reminder import process_reminders
 
+# test2
 
 def main():
     print("The program has started")
