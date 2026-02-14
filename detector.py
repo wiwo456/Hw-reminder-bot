@@ -1,3 +1,4 @@
+#this is the code that is responsible for detection of all assignments.
 import requests
 from ics import Calendar
 from datetime import datetime
