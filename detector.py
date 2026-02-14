@@ -1,56 +1,37 @@
+import requests
+from ics import Calendar
+from datetime import datetime
+import json
+
+
 def detect_hw():
-    print ("Detector: Checking for your assignments........")
+    with open("config.json", "r") as f:
+        config = json.load(f)
+
+    ical_url = config["ical_url"]
+
+    response = requests.get(ical_url)
+    calendar = Calendar(response.text)
+
     homework_list = []
 
-    homework_list.append ({
-        "course": "math2100",
-        "title":"homework 1",
-        "due":"2026-02-13",
-        "time": "11:59 PM",
-    })
+    now = datetime.now()
 
-    homework_list.append ({
-        "course": "Computer2100",
-        "title":"homework 1",
-        "due":"2026-2-15",
-        "time": "11:59 PM",
-    })
+    for event in calendar.events:
+        event_time = event.begin.to("local").naive
 
-    homework_list.append({
-        "course": "English1500",
-        "title": "essay",
-        "due": "2026-02-14",
-        "time": "11:59 AM",
-    })
+        if event_time < now:
+            continue
 
-    homework_list.append({
-        "course": "Physics2500",
-        "title": "lab",
-        "due": "2026-02-20",
-        "time": "12:00 PM",
-    })
-    homework_list.append({
-        "course": "Chemistry2500",
-        "title": "lab",
-        "due": "2026-02-20",
-        "time": "12:00 PM",
-    })
-    
-    homework_list.append({
-        "course": "Nepali",
-        "title": "HW",
-        "due": "2026-02-15",
-        "time": "12:00 PM",
+        title = event.name.strip()
 
-    })
+        due_date = event_time.strftime("%Y-%m-%d")
+        due_time = event_time.strftime("%I:%M %p")
 
-    homework_list.append({
-        "course": "Social",
-        "title": "Map of USA",
-        "due": "2026-02-12",
-        "time": "12:00 PM",
-
-    })
+        homework_list.append({
+            "title": title,
+            "due": due_date,
+            "time": due_time
+        })
 
     return homework_list
-
