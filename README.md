@@ -24,7 +24,13 @@ Create a file: config.json
   "blackboard_url": "https://your-school-blackboard.edu"
 }
 ```
-
+Create a file: storage.json (this one is for storage of assignments)
+```json
+{
+  "reminded_hw":{
+   }
+}
+```
 To run:
 
 ```
