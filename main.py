@@ -15,6 +15,7 @@ def main():
         config = json.load(f)
 
     webhook_url = config["discord_webhook"]
+    blackboard_url = config["blackboard_url"]
     delay_minutes = config["delay_minutes"]
     delay_seconds = delay_minutes * 60
 
@@ -30,7 +31,7 @@ def main():
             "embeds": [
                 {
                     "title": "📚 Homework Alert 🔔",
-                    "description": f"**{hw['title']}**",
+                    "description": f"**{hw['title']}**\n\n[Blackboard]({blackboard_url})",
                     "color": hw["color"],
                     "fields": [
                         {
