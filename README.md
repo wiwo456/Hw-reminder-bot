@@ -19,7 +19,7 @@ Create a file: config.json
 ```json 
 {
   "discord_webhook": "your discord webhook link",
-  "delay_minutes": 10,
+  "delay_minutes": 10, #For this you can choose your own time in order to create the notification gap between two assignments.
   "ical_url": "your calendar(ICAL) url ",
   "blackboard_url": "https://your-school-blackboard.edu"
 }
