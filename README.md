@@ -1,4 +1,4 @@
-Hw-Remainder-Bot 🤖
+Hw-Reminder-Bot 🤖
 
 This is a python based hw remainder bot that reads your homework from blackboard and sends it to discord as remainders to do the homework.
 
