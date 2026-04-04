@@ -1,16 +1,13 @@
-#this is the code where main part of the code is going on 
 import json
 import detector
 import requests
 import time
 import storage
 from reminder import process_reminders
+from datetime import datetime
 
-# test2
 
 def main():
-    print("The program has started")
-
     with open("config.json", "r") as f:
         config = json.load(f)
 
@@ -25,7 +22,10 @@ def main():
 
     reminders = process_reminders(homework, storage_data)
 
-    
+    # 🔔 Only print if something is actually sent
+    if reminders:
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] Sending {len(reminders)} reminder(s)")
+
     for hw in reminders:
         message = {
             "embeds": [
@@ -52,20 +52,22 @@ def main():
             ]
         }
 
-        
         requests.post(webhook_url, json=message)
 
     storage.save_storage(storage_data)
 
-    print("Sleeping for", delay_minutes, "minutes\n")
     return delay_seconds
 
 
 if __name__ == "__main__":
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] Bot is running... 🚀\n")
+
     while True:
         try:
             delay = main()
         except Exception as e:
-            print("There is some issue:", e)
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] Error: {e}")
             delay = 60
+
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] Sleeping for {delay//60} minutes...\n")
         time.sleep(delay)
